@@ -1,0 +1,171 @@
+﻿@model EmpLetterGenerate.Models.LetterModel
+
+@{
+    ViewBag.Title = "Generate Letter";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Global Styling */
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2018/03/10/12/00/teamwork-3213924_1280.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-size: 0.95rem;
+            background-color: #f8f9fa;
+            position: relative;
+        }
+
+            /* Darker overlay for better readability */
+            body::before {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5); /* Darker overlay */
+                z-index: -1;
+            }
+
+        /* Form Input Fields */
+        .form-control {
+            height: 28px;
+            font-size: 0.8rem;
+            padding: 4px;
+            width: 155px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* Labels */
+        .form-label {
+            font-weight: 500;
+            font-size: 0.8rem;
+            margin-bottom: 0;
+            width: 110px;
+        }
+
+        /* Form Container */
+        .custom-card {
+            max-width: 330px;
+            border-radius: 10px;
+            margin: auto;
+            box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 14px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Generated Letter Card */
+        .letter-card {
+            max-width: 690px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Button Styling */
+        .btn-custom {
+            font-size: 0.85rem;
+            padding: 6px;
+            width: 55%;
+            max-width: 150px;
+            display: block;
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+
+        /* Letter Box */
+        .letter-box {
+            border: 1px solid #ddd;
+            padding: 14px;
+            border-radius: 7px;
+            background-color: #f8f9fa;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <!-- Form Card -->
+            <div class="col-lg-4 col-md-6 col-sm-10">
+                <div class="custom-card mt-3">
+                    <h6 class="text-center mb-3">Generate Letter</h6>
+
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["Error"]</div>
+                    }
+
+                    @using (Html.BeginForm("GenerateLetter", "Letter", FormMethod.Post, new { @class = "row g-2 needs-validation", novalidate = "novalidate" }))
+                    {
+                        <!-- Employee No Field (Inline) -->
+                        <div class="col-12 d-flex align-items-center mb-3">
+                            <label for="EmpNo" class="form-label">Employee No:</label>
+                            @Html.TextBoxFor(m => m.EmpNo, new { @class = "form-control", required = "required", placeholder = "Enter Employee No" })
+                        </div>
+
+                        <!-- Letter Type Dropdown (Inline) -->
+                        <div class="col-12 d-flex align-items-center mb-3">
+                            <label for="LetterType" class="form-label">Letter Type:</label>
+                            @Html.DropDownListFor(m => m.LetterType,
+                                ViewBag.LetterTypes != null
+                                ? new SelectList(ViewBag.LetterTypes, "Value", "Text")
+                                : new SelectList(new List<SelectListItem>()),
+                                "Select Letter Type",
+                                new { @class = "form-control", required = "required" })
+                        </div>
+
+                        <div class="col-12 text-center mt-3">
+                            <button type="submit" class="btn btn-primary btn-custom">Generate</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Generated Letter Section -->
+        @if (!string.IsNullOrEmpty(ViewBag.LetterContent as string))
+        {
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-6 col-md-8 col-sm-12">
+                    <div class="letter-card">
+                        <h6 class="text-center mb-3">@ViewBag.LetterSubject</h6>
+                        <div class="letter-box">
+                            @Html.Raw(ViewBag.LetterContent.Replace("\n", "<br/>"))
+                        </div>
+                        <br />
+                        <div class="text-center">
+                            <a href="@Url.Action("DownloadLetter", "Letter", new { fileName = ViewBag.FileName })" class="btn btn-success btn-custom">
+                                Download PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.35706.149
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmpLetterGenerate", "EmpLetterGenerate\EmpLetterGenerate.csproj", "{8A9C31FD-030D-4D9F-8219-17F82E5D5A34}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A9C31FD-030D-4D9F-8219-17F82E5D5A34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A9C31FD-030D-4D9F-8219-17F82E5D5A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A9C31FD-030D-4D9F-8219-17F82E5D5A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A9C31FD-030D-4D9F-8219-17F82E5D5A34}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {69633D58-E64C-4123-BE05-91C11C1FE397}
+	EndGlobalSection
+EndGlobal
